@@ -17,18 +17,18 @@ jobs:
     permissions:
       contents: read
       id-token: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Build and Deploy
-        id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           action: "upload"
-          app_location: "/"               # Location of your HTML/CSS/JS files
-          output_location: "/"            # No build output directory
-          repo_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub provides this automatically
+          app_location: "/"               # Change if your HTML/CSS is in a subfolder
+          output_location: "/"            # No build output folder
+          repo_token: ${{ secrets.GITHUB_TOKEN }}  # <-- This is enough
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
